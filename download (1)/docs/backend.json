@@ -1,0 +1,60 @@
+{
+  "entities": {
+    "UserProfile": {
+      "$schema": "http://json-schema.org/draft-07/schema#",
+      "title": "UserProfile",
+      "type": "object",
+      "description": "Represents a user's profile with personalized information for the Synapse Pakistan AI.",
+      "properties": {
+        "id": {
+          "type": "string",
+          "description": "Unique identifier for the user profile, matching the Firebase Auth UID."
+        },
+        "name": {
+          "type": "string",
+          "description": "User's name."
+        },
+        "language": {
+          "type": "string",
+          "description": "User's preferred language (e.g., English, Urdu, Roman Urdu)."
+        },
+        "profession": {
+          "type": "string",
+          "description": "User's profession or occupation."
+        },
+        "interests": {
+          "type": "array",
+          "description": "User's interests, stored as an array of strings.",
+          "items": {
+            "type": "string"
+          }
+        },
+        "lastInteraction": {
+          "type": "string",
+          "format": "date-time",
+          "description": "Date and time of the user's last interaction with the AI."
+        },
+        "memoryNotes": {
+          "type": "string",
+          "description": "Additional notes about the user's preferences, goals, or past queries."
+        }
+      },
+      "required": [
+        "id"
+      ]
+    }
+  },
+  "auth": {
+    "providers": [
+      "anonymous"
+    ]
+  },
+  "firestore": {
+    "/users/{userId}": {
+      "schema": {
+        "$ref": "#/entities/UserProfile"
+      },
+      "description": "Stores individual user profiles. The document ID is the user's Firebase Auth UID, ensuring only the authenticated user can access their own profile."
+    }
+  }
+}
